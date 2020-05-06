@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<title>OTL PC2 Random Car/Track Chooser</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
+<body>
+
+    <!--Main Content-->
+    <div class="main">
+        <h3>OTL PC2 Random Car/Track Chooser</h3>
+        <div id="userControl">
+            <button id="btnGo">GO!</button>
+        </div>
+        <div class="loader"></div>
+        <div id="chosenCar"></div>
+        <div id="chosenTrack"></div>
+    </div>
+    <!--End Main Content-->
+
+    <!--Footer-->
+    <div class="footer">
+        <div class="footer-text">© OTL 2020</div>
+    </div>
+    <!--End Footer-->
+</body>
+
+</html>
+
+<script>
+    //Set lists 
+    let carList = ['Car1', 'Car2', 'Car3'];
+    let trackList = ['Track1', 'Track2', 'Track3'];
+
+    //Set Vars
+    var pickedCar = "";
+    var pickedTrack = "";
+
+    //Function(s)
+
+    //Called by button click
+    function randomise() {
+        showLoader();
+        setTimeout(randomiseCar, 3000);
+        setTimeout(randomiseTrack, 3500);
+        setTimeout(hideLoader, 3000);
+    };
+
+    //Generate random car
+    function randomiseCar() {
+        pickedCar = carList[Math.floor(Math.random() * carList.length)];
+        $("#chosenCar").text('Todays Car is: ' + pickedCar).show("slow");
+    };
+
+    //Generate random track
+    function randomiseTrack() {
+        pickedTrack = trackList[Math.floor(Math.random() * trackList.length)];
+        $("#chosenTrack").text('Todays Track is: ' + pickedTrack).show("slow");
+    };
+
+    //Show loader
+    function showLoader() {
+        $(".loader").css("visibility", "visible")
+        $(".loader").css("display", "block")
+    }
+
+    //Hide loader
+    function hideLoader() {
+        $(".loader").css("visibility", "hidden")
+        $(".loader").css("display", "none")
+    }
+
+    //Document Ready
+    $(document).ready(function () {
+        //When button clicked run randomise
+        $("#btnGo").click(function () {
+            randomise();
+        });
+    });
+</script>
+
+<style>
+    .loader {
+        visibility: hidden;
+        display: none;
+        border: 16px solid #000000;
+        border-top: 16px solid #ff952a;
+        border-bottom: 16px solid #ff952a;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    #chosenCar,
+    #chosenTrack {
+        display: none;
+    }
+</style>
